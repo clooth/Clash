@@ -24,7 +24,6 @@
 #endif
 
 #include <iostream>
-
 #include "Game.h"
 
 /**

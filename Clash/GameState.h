@@ -13,7 +13,6 @@
 #include <string>
 
 #include "GameData.h"
-#include "Settings.h"
 
 class Player;
 class Building;
@@ -162,24 +161,11 @@ public:
      */
     FogOfWar* getFOV();
 
-    /**
-     * Gets settings values
-     */
-	template < typename T >
-	T getValue(std::string key) {
-		return settings->getValue<T>(key);
-	}
-
 private:
     /**
      * Screen where SDL is drawing on
      */
     SDL_Surface* screen;
-
-    /**
-     * Settings object, hold configurations of the game.
-     */
-    Settings* settings;
 
     /**
      * Fog of war object

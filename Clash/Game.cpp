@@ -39,6 +39,7 @@
 #include <GL/glu.h>
 #endif
 
+#include "Config.h"
 #include "Game.h"
 
 #include "GLRenderer.h"
@@ -94,9 +95,7 @@ Game::Game() {
 
     this->ingame = false;
 
-    this->fogOfWar = NULL;
-    
-    this->audio = NULL;
+    this->fogOfWar = NULL;    
 }
 
 int Game::init() {
@@ -137,15 +136,15 @@ int Game::init() {
 
 
     // Intializing video device for SDL
-    if(gameState->getValue<bool>("Video.fullscreen"))
-        screen = SDL_SetVideoMode(gameState->getValue<int>("Video.width"),
-        						  gameState->getValue<int>("Video.height"),
-        						  gameState->getValue<int>("Video.bpp"),
+    if(CFG_VIDEO_FULLSCREEN)
+        screen = SDL_SetVideoMode(CFG_VIDEO_WIDTH,
+        						  CFG_VIDEO_HEIGHT,
+        						  CFG_VIDEO_BPP,
         						  SDL_HWSURFACE | SDL_GL_DOUBLEBUFFER | SDL_OPENGL | SDL_FULLSCREEN | SDL_ANYFORMAT );
     else
-        screen = SDL_SetVideoMode(gameState->getValue<int>("Video.width"),
-        						  gameState->getValue<int>("Video.height"),
-        						  gameState->getValue<int>("Video.bpp"),
+        screen = SDL_SetVideoMode(CFG_VIDEO_WIDTH,
+        						  CFG_VIDEO_HEIGHT,
+        						  CFG_VIDEO_BPP,
         						  SDL_HWSURFACE | SDL_GL_DOUBLEBUFFER | SDL_OPENGL | SDL_ANYFORMAT);
 
     if (TTF_Init() < 0) {
@@ -154,7 +153,7 @@ int Game::init() {
     }
 
     // Initializing OpenGL
-    this->render = new GLRenderer(gameState->getValue<int>("Video.width"), gameState->getValue<int>("Video.height"), gameState);
+    this->render = new GLRenderer(CFG_VIDEO_WIDTH, CFG_VIDEO_HEIGHT, gameState);
 
     gameState->setScreen(screen);
     gameState->setRenderer(render);
@@ -283,13 +282,13 @@ void Game::Calculate() {
 
 void Game::FrameInput() {
 	//Scrolling at arrow keys
-	int scrollspeed = gameState->getValue<int>("Input.scroll.speed");
+	int scrollspeed = CFG_INPUT_SCROLL_SPEED;
 	if (render->cameraX > 0 && keystates[SDLK_LEFT]) {
 		render->cameraX-= scrollspeed;
 		render->moveCamera(-1*scrollspeed,0);
 	}
 
-	if (render->cameraX < 110*64-gameState->getValue<int>("Video.width") && keystates[SDLK_RIGHT]) {
+	if (render->cameraX < 110*64-CFG_VIDEO_WIDTH && keystates[SDLK_RIGHT]) {
 		render->cameraX+=scrollspeed;
 		render->moveCamera(scrollspeed,0);
 	}
@@ -299,7 +298,7 @@ void Game::FrameInput() {
 		render->moveCamera(0,-1*scrollspeed);
 	}
 
-	if (render->cameraY < 110*64-gameState->getValue<int>("Video.height")+200 && keystates[SDLK_DOWN]) {
+	if (render->cameraY < 110*64-CFG_VIDEO_HEIGHT+200 && keystates[SDLK_DOWN]) {
 		render->cameraY+=scrollspeed;
 		render->moveCamera(0,scrollspeed);
 	}
@@ -311,20 +310,20 @@ void Game::FrameInput() {
 		mouseY = event.button.y;
 
 		//If mouse on Minimap
-		if( (mouseX >= 20)  && (mouseX <= 280) && (mouseY >= gameState->getValue<int>("Video.height")-280) && (mouseY <= gameState->getValue<int>("Video.height")-20)) {
-			mouseX -= 36; mouseY -= gameState->getValue<int>("Video.height")-260+12;
+		if( (mouseX >= 20)  && (mouseX <= 280) && (mouseY >= CFG_VIDEO_HEIGHT-280) && (mouseY <= CFG_VIDEO_HEIGHT-20)) {
+			mouseX -= 36; mouseY -= CFG_VIDEO_HEIGHT-260+12;
 			mouseX *= 32; mouseY *= 32;
 
 			//correction so that camera does not get out of screen
-			if(mouseX > (MAPSIZE*64)-5-gameState->getValue<int>("Video.width"))
-				render->setCameraX((MAPSIZE*64)-5-gameState->getValue<int>("Video.width"));
+			if(mouseX > (MAPSIZE*64)-5-CFG_VIDEO_WIDTH)
+				render->setCameraX((MAPSIZE*64)-5-CFG_VIDEO_WIDTH);
 			else if(mouseX < 0)
 				render->setCameraX(0);
 			else
 				render->setCameraX(mouseX);
 
-			if(mouseY > (MAPSIZE*64)-5-gameState->getValue<int>("Video.height")+200)
-				render->setCameraY((MAPSIZE*64)-5-gameState->getValue<int>("Video.height")+200);
+			if(mouseY > (MAPSIZE*64)-5-CFG_VIDEO_HEIGHT+200)
+				render->setCameraY((MAPSIZE*64)-5-CFG_VIDEO_HEIGHT+200);
 			else if(mouseY < 0)
 				render->setCameraY(0);
 			else
@@ -336,45 +335,45 @@ void Game::FrameInput() {
 void Game::BuildMenuInput(int type) {
 	int position = 0;
 	// CC
-	if((mouseX >= gameState->getValue<int>("Video.width")-230)  &&
-	   (mouseX <= gameState->getValue<int>("Video.width")-140) &&
-	   (mouseY >= gameState->getValue<int>("Video.height")-555) &&
-	   (mouseY <= gameState->getValue<int>("Video.height")-470)) {
+	if((mouseX >= CFG_VIDEO_WIDTH-230)  &&
+	   (mouseX <= CFG_VIDEO_WIDTH-140) &&
+	   (mouseY >= CFG_VIDEO_HEIGHT-555) &&
+	   (mouseY <= CFG_VIDEO_HEIGHT-470)) {
 		position = 1;
 	}
 	// Barracks
-	if((mouseX >= gameState->getValue<int>("Video.width")-120)  &&
-	   (mouseX <= gameState->getValue<int>("Video.width")-30) &&
-	   (mouseY >= gameState->getValue<int>("Video.height")-555) &&
-	   (mouseY <= gameState->getValue<int>("Video.height")-470)) {
+	if((mouseX >= CFG_VIDEO_WIDTH-120)  &&
+	   (mouseX <= CFG_VIDEO_WIDTH-30) &&
+	   (mouseY >= CFG_VIDEO_HEIGHT-555) &&
+	   (mouseY <= CFG_VIDEO_HEIGHT-470)) {
 		position = 2;
 	}
 	// Supply depot
-	if((mouseX >= gameState->getValue<int>("Video.width")-230)  &&
-	   (mouseX <= gameState->getValue<int>("Video.width")-140) &&
-	   (mouseY >= gameState->getValue<int>("Video.height")-460) &&
-	   (mouseY <= gameState->getValue<int>("Video.height")-375)) {
+	if((mouseX >= CFG_VIDEO_WIDTH-230)  &&
+	   (mouseX <= CFG_VIDEO_WIDTH-140) &&
+	   (mouseY >= CFG_VIDEO_HEIGHT-460) &&
+	   (mouseY <= CFG_VIDEO_HEIGHT-375)) {
 		position = 3;
 	}
 	// Research lab
-	if((mouseX >= gameState->getValue<int>("Video.width")-120)  &&
-	   (mouseX <= gameState->getValue<int>("Video.width")-30) &&
-	   (mouseY >= gameState->getValue<int>("Video.height")-460) &&
-	   (mouseY <= gameState->getValue<int>("Video.height")-375)) {
+	if((mouseX >= CFG_VIDEO_WIDTH-120)  &&
+	   (mouseX <= CFG_VIDEO_WIDTH-30) &&
+	   (mouseY >= CFG_VIDEO_HEIGHT-460) &&
+	   (mouseY <= CFG_VIDEO_HEIGHT-375)) {
 		position = 4;
 	}
 	// Factory
-	if((mouseX >= gameState->getValue<int>("Video.width")-230)  &&
-	   (mouseX <= gameState->getValue<int>("Video.width")-140) &&
-	   (mouseY >= gameState->getValue<int>("Video.height")-365) &&
-	   (mouseY <= gameState->getValue<int>("Video.height")-280)) {
+	if((mouseX >= CFG_VIDEO_WIDTH-230)  &&
+	   (mouseX <= CFG_VIDEO_WIDTH-140) &&
+	   (mouseY >= CFG_VIDEO_HEIGHT-365) &&
+	   (mouseY <= CFG_VIDEO_HEIGHT-280)) {
 		position = 5;
 	}
 	// Military Airport
-	if((mouseX >= gameState->getValue<int>("Video.width")-120)  &&
-	   (mouseX <= gameState->getValue<int>("Video.width")-30) &&
-	   (mouseY >= gameState->getValue<int>("Video.height")-365) &&
-	   (mouseY <= gameState->getValue<int>("Video.height")-280)) {
+	if((mouseX >= CFG_VIDEO_WIDTH-120)  &&
+	   (mouseX <= CFG_VIDEO_WIDTH-30) &&
+	   (mouseY >= CFG_VIDEO_HEIGHT-365) &&
+	   (mouseY <= CFG_VIDEO_HEIGHT-280)) {
 		position = 6;
 	}
 	// MOTIONS
@@ -484,13 +483,13 @@ void Game::EventInput() {
 					int y = event.button.y;
 
 					// Button 1
-					if(x >= gameState->getValue<int>("Video.width")-gameState->getValue<int>("Video.width")/2-202 && x <= gameState->getValue<int>("Video.width")-gameState->getValue<int>("Video.width")/2+202 &&
-					   y >= gameState->getValue<int>("Video.height")-gameState->getValue<int>("Video.height")/2-130 && y <= gameState->getValue<int>("Video.height")-gameState->getValue<int>("Video.height")/2-74) {
+					if(x >= CFG_VIDEO_WIDTH-CFG_VIDEO_WIDTH/2-202 && x <= CFG_VIDEO_WIDTH-CFG_VIDEO_WIDTH/2+202 &&
+					   y >= CFG_VIDEO_HEIGHT-CFG_VIDEO_HEIGHT/2-130 && y <= CFG_VIDEO_HEIGHT-CFG_VIDEO_HEIGHT/2-74) {
 						if(startMenuID == 0) startMenuID = 1;
 					}
 					// Button 2
-					if(x >= gameState->getValue<int>("Video.width")-gameState->getValue<int>("Video.width")/2-202 && x <= gameState->getValue<int>("Video.width")-gameState->getValue<int>("Video.width")/2+202 &&
-					   y >= gameState->getValue<int>("Video.height")-gameState->getValue<int>("Video.height")/2-50 && y <= gameState->getValue<int>("Video.height")-gameState->getValue<int>("Video.height")/2+6) {
+					if(x >= CFG_VIDEO_WIDTH-CFG_VIDEO_WIDTH/2-202 && x <= CFG_VIDEO_WIDTH-CFG_VIDEO_WIDTH/2+202 &&
+					   y >= CFG_VIDEO_HEIGHT-CFG_VIDEO_HEIGHT/2-50 && y <= CFG_VIDEO_HEIGHT-CFG_VIDEO_HEIGHT/2+6) {
 						if(startMenuID == 1) {
 							/*if(render->startScreenScroll > 0) {
 								glTranslatef(0.0f, render->startScreenScroll, 0.0f);
@@ -503,8 +502,8 @@ void Game::EventInput() {
 						}
 					}
 					// Button 3
-					if(x >= gameState->getValue<int>("Video.width")-gameState->getValue<int>("Video.width")/2-202 && x <= gameState->getValue<int>("Video.width")-gameState->getValue<int>("Video.width")/2+202 &&
-					   y >= gameState->getValue<int>("Video.height")-gameState->getValue<int>("Video.height")/2+30 && y <= gameState->getValue<int>("Video.height")-gameState->getValue<int>("Video.height")/2+86) {
+					if(x >= CFG_VIDEO_WIDTH-CFG_VIDEO_WIDTH/2-202 && x <= CFG_VIDEO_WIDTH-CFG_VIDEO_WIDTH/2+202 &&
+					   y >= CFG_VIDEO_HEIGHT-CFG_VIDEO_HEIGHT/2+30 && y <= CFG_VIDEO_HEIGHT-CFG_VIDEO_HEIGHT/2+86) {
 						if(startMenuID == 1) {
 							if(render->startScreenScroll > 0) {
 								glTranslatef(0.0f, render->startScreenScroll, 0.0f);
@@ -516,13 +515,13 @@ void Game::EventInput() {
 						if(startMenuID == 0) startMenuID = 3;
 					}
 					// Button 4
-					if(x >= gameState->getValue<int>("Video.width")-gameState->getValue<int>("Video.width")/2-202 && x <= gameState->getValue<int>("Video.width")-gameState->getValue<int>("Video.width")/2+202 &&
-					   y >= gameState->getValue<int>("Video.height")-gameState->getValue<int>("Video.height")/2+110 && y <= gameState->getValue<int>("Video.height")-gameState->getValue<int>("Video.height")/2+166) {
+					if(x >= CFG_VIDEO_WIDTH-CFG_VIDEO_WIDTH/2-202 && x <= CFG_VIDEO_WIDTH-CFG_VIDEO_WIDTH/2+202 &&
+					   y >= CFG_VIDEO_HEIGHT-CFG_VIDEO_HEIGHT/2+110 && y <= CFG_VIDEO_HEIGHT-CFG_VIDEO_HEIGHT/2+166) {
 
 					}
 					// Button 5
-					if(x >= gameState->getValue<int>("Video.width")-gameState->getValue<int>("Video.width")/2-202 && x <= gameState->getValue<int>("Video.width")-gameState->getValue<int>("Video.width")/2+202 &&
-					   y >= gameState->getValue<int>("Video.height")-gameState->getValue<int>("Video.height")/2+190 && y <= gameState->getValue<int>("Video.height")-gameState->getValue<int>("Video.height")/2+246) {
+					if(x >= CFG_VIDEO_WIDTH-CFG_VIDEO_WIDTH/2-202 && x <= CFG_VIDEO_WIDTH-CFG_VIDEO_WIDTH/2+202 &&
+					   y >= CFG_VIDEO_HEIGHT-CFG_VIDEO_HEIGHT/2+190 && y <= CFG_VIDEO_HEIGHT-CFG_VIDEO_HEIGHT/2+246) {
 						if(startMenuID == 0) quit = true;
 						if(startMenuID > 0) startMenuID = 0;
 					}
@@ -540,16 +539,16 @@ void Game::EventInput() {
             gameState->setActiveTooltip(NULL);
 
             // If mouse is over the actions area of units/buildings
-            if( (mouseX >= gameState->getValue<int>("Video.width")-240)  &&
-				(mouseX <= gameState->getValue<int>("Video.width")) &&
-				(mouseY >= gameState->getValue<int>("Video.height")-240) &&
-				(mouseY <= gameState->getValue<int>("Video.height"))) {
+            if( (mouseX >= CFG_VIDEO_WIDTH-240)  &&
+				(mouseX <= CFG_VIDEO_WIDTH) &&
+				(mouseY >= CFG_VIDEO_HEIGHT-240) &&
+				(mouseY <= CFG_VIDEO_HEIGHT)) {
                 // Checks if something is activated and if it's a building
                 if(activatedObject.size() == 1 && activatedObject[0] != NULL && activatedObject[0]->getID() >= 20 && activatedObject[0]->getID() <= 39) {
                     // Only if it's own building
                     if(activatedObject[0]->getOwner() == players[0]) {
                         if(((Building*)activatedObject[0])->buildBuilding() == -1) {
-                            ((Building*)activatedObject[0])->doMotion(mouseX-gameState->getValue<int>("Video.width")+240,mouseY-gameState->getValue<int>("Video.height")+240);
+                            ((Building*)activatedObject[0])->doMotion(mouseX-CFG_VIDEO_WIDTH+240,mouseY-CFG_VIDEO_HEIGHT+240);
                         }
                     }
                 }
@@ -571,26 +570,26 @@ void Game::EventInput() {
                 // Mouse click on top of minimap
                 if( (mouseX >= 20)  &&
                     (mouseX <= 280) &&
-                    (mouseY >= gameState->getValue<int>("Video.height")-280) &&
-                    (mouseY <= gameState->getValue<int>("Video.height")-20)) {
+                    (mouseY >= CFG_VIDEO_HEIGHT-280) &&
+                    (mouseY <= CFG_VIDEO_HEIGHT-20)) {
                     mousePressed = true;
                 }
                 // click on build menu button / closed menu
                 else if(!buildMenu &&
-                        (mouseX >= gameState->getValue<int>("Video.width")-32)  &&
-                        (mouseX <= gameState->getValue<int>("Video.width")) &&
-                        (mouseY >= gameState->getValue<int>("Video.height")-350) &&
-                        (mouseY <= gameState->getValue<int>("Video.height")-250)) {
+                        (mouseX >= CFG_VIDEO_WIDTH-32)  &&
+                        (mouseX <= CFG_VIDEO_WIDTH) &&
+                        (mouseY >= CFG_VIDEO_HEIGHT-350) &&
+                        (mouseY <= CFG_VIDEO_HEIGHT-250)) {
                     buildMenu = true;
                     Update();
                 }
                 // build menu open actions
                 else if(buildMenu) {
                 	BuildMenuInput(2);
-                	if( (mouseX >= gameState->getValue<int>("Video.width")-282)  &&
-						(mouseX <= gameState->getValue<int>("Video.width")-250) &&
-						(mouseY >= gameState->getValue<int>("Video.height")-350) &&
-						(mouseY <= gameState->getValue<int>("Video.height")-250)) {
+                	if( (mouseX >= CFG_VIDEO_WIDTH-282)  &&
+						(mouseX <= CFG_VIDEO_WIDTH-250) &&
+						(mouseY >= CFG_VIDEO_HEIGHT-350) &&
+						(mouseY <= CFG_VIDEO_HEIGHT-250)) {
                 		buildMenu = false;
                 	}
                     Update();
@@ -622,8 +621,8 @@ void Game::EventInput() {
                     }
                 } 
                 // If nothing happened yet, you clicked on free ground to unselect something or selecting unit
-                else if( (mouseX <= gameState->getValue<int>("Video.width")) &&
-                         (mouseY <= gameState->getValue<int>("Video.height")-240) ) {
+                else if( (mouseX <= CFG_VIDEO_WIDTH) &&
+                         (mouseY <= CFG_VIDEO_HEIGHT-240) ) {
                     mouseSelect = true;
                     selectStartX = event.button.x;
                     selectStartY = event.button.y;
@@ -647,15 +646,15 @@ void Game::EventInput() {
                     Update();
                 }
                 // Building/Unit actions
-                else if( (mouseX >= gameState->getValue<int>("Video.width")-240)  &&
-                         (mouseX <= gameState->getValue<int>("Video.width")) &&
-                         (mouseY >= gameState->getValue<int>("Video.height")-240) &&
-                         (mouseY <= gameState->getValue<int>("Video.height"))) {
+                else if( (mouseX >= CFG_VIDEO_WIDTH-240)  &&
+                         (mouseX <= CFG_VIDEO_WIDTH) &&
+                         (mouseY >= CFG_VIDEO_HEIGHT-240) &&
+                         (mouseY <= CFG_VIDEO_HEIGHT)) {
                     // Checks if it's building
                     if(activatedObject.size() == 1 && activatedObject[0] != NULL && activatedObject[0]->getID() >= 20 && activatedObject[0]->getID() <= 39) {
                         // Can't build stuff if building is still building itself up
                         if(activatedObject[0]->getOwner() == players[0] && ((Building*)activatedObject[0])->buildBuilding() == -1) {
-                            ((Building*)activatedObject[0])->doAction(mouseX-gameState->getValue<int>("Video.width")+240,mouseY-gameState->getValue<int>("Video.height")+240);
+                            ((Building*)activatedObject[0])->doAction(mouseX-CFG_VIDEO_WIDTH+240,mouseY-CFG_VIDEO_HEIGHT+240);
                         }
                     }
                 }
@@ -857,7 +856,7 @@ int Game::placeBuilding() {
 }
 
 bool Game::checkWithinBorders(int condition1, int condition2) {
-    if(condition1 >= 0 && condition1 <= gameState->getValue<int>("Video.width") && condition2 >= 0 && condition2 <= gameState->getValue<int>("Video.height")) return true;
+    if(condition1 >= 0 && condition1 <= CFG_VIDEO_WIDTH && condition2 >= 0 && condition2 <= CFG_VIDEO_HEIGHT) return true;
     else return false;
 }
 

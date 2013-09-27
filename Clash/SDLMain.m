@@ -78,6 +78,8 @@ static NSString *getApplicationName(void)
 @end
 
 @implementation NSApplication (SDLApplication)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wobjc-protocol-method-implementation"
 /* Invoked from the Quit menu item */
 - (void)terminate:(id)sender
 {
@@ -87,6 +89,9 @@ static NSString *getApplicationName(void)
     SDL_PushEvent(&event);
 }
 @end
+#pragma clang diagnostic pop
+
+
 
 /* The main class of the application, the application's delegate */
 @implementation SDLMain

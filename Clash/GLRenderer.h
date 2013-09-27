@@ -23,23 +23,11 @@
 #ifndef GLRENDERER_H_
 #define GLRENDERER_H_
 
-#ifdef _WIN32
-#include <windows.h>
-#endif
-
-#ifdef __APPLE__
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
 #include <SDL/SDL_ttf.h>
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
-#else
-#include <SDL/SDL.h>
-#include <SDL/SDL_image.h>
-#include <SDL/SDL_ttf.h>
-#include <GL/gl.h>
-#include <GL/glu.h>
-#endif
 
 #include <string>
 #include <vector>

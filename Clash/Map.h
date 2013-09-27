@@ -13,122 +13,118 @@
 #include <vector>
 #include <string>
 
-#include "Tile.h"
+#include "MapTile.h"
 
 class GameState;
 
-/**
- * Saves game map
- */
-class Map {
-private:
+namespace Clash
+{
     /**
-     * State of the game object
+     * Game map representaiton
      */
-    GameState* gameState;
+    class Map
+    {
+    public:
+        /**
+         * Constructor
+         */
+        Map();
 
-    /**
-     * Map total size
-     */
-    int size;
+        /**
+         * Destructor
+         */
+        ~Map();
 
-    /**
-     * Is set when creating of map is done, either on importing a map or on
-     * creating it by randomizer.
-     */
-    bool created;
+        /**
+         * Getting size of the map
+         * @return integer
+         */
+        int get_size() const;
 
-    /**
-     *  Tile-based grid of the map
-     */
-    std::vector<std::vector<Tile*> > grid;
-public:
-    /**
-     * Constructor
-     */
-    Map();
+        /**
+         * Game state setter
+         *
+         * @param game_state state of the game pointer
+         */
+        void set_game_state(GameState* game_state);
 
-    /**
-     * Destructor
-     */
-    ~Map();
+        /**
+         * Importing map from filename
+         *
+         * @param filename file to import
+         * @return true if successful, false if not
+         */
+        bool import_map_from_file(std::string filename);
 
-    /**
-     * Getting size of the map
-     * @return integer
-     */
-    int getSize() const;
+        /**
+         * Gives back tileId of tile at position of given coordinates
+         *
+         * @param x x-coordinate of tile
+         * @param y y-coordinate of tile
+         * @return tileid
+         */
+        int tile_id(int x, int y);
 
-    /**
-     * Setting state of the game pointer
-     *
-     * @param gs state of the game pointer
-     */
-    void setGameState(GameState* gs);
+        /**
+         * Gives back minimap color of tile at position of given coordinates
+         *
+         * @param x x-coordinate of tile
+         * @param y y-coordinate of tile
+         * @return minimap color of tile
+         */
+        float* tile_color(int x, int y);
 
-    /**
-     * Creating random map, deprecated
-     *
-     * @param size size of the map
-     * @return zero if done, something else if error
-     */
-    int createMap(int size);
+        /**
+         * Gives back tileType of tile at position of given coordinates
+         *
+         * @param x x-coordinate of tile
+         * @param y y-coordinate of tile
+         * @return tileType
+         */
+        int tile_type(int x, int y);
 
-    /**
-     * Importing map from filename
-     *
-     * @param filename file to import
-     * @return zero if done, something else if error
-     */
-    int importMap(std::string);
+        /**
+         * Gives back boolean value if tile at position of given coordinates
+         * is in use (build on by a building) or not
+         *
+         * @param x x-coordinate of tile
+         * @param y y-coordinate of tile
+         * @return boolean if something is build on this tile
+         */
+        bool is_tile_used(int x, int y);
 
-    /**
-     * Gives back tileId of tile at position of given coordinates
-     *
-     * @param x x-coordinate of tile
-     * @param y y-coordinate of tile
-     * @return tileid
-     */
-    int tileID(int x, int y);
+        /**
+         * Setting a tile build or not build. Called by Building class when
+         * buildings get build or destroyed.
+         *
+         * @param x x-coordinate of tile
+         * @param y y-coordinate of tile
+         * @param toggle boolean value if used or not
+         * @return pointer to tile which is changed
+         */
+        MapTile* set_tile(int x, int y, bool toggle);
 
-    /**
-     * Gives back minimap color of tile at position of given coordinates
-     *
-     * @param x x-coordinate of tile
-     * @param y y-coordinate of tile
-     * @return minimap color of tile
-     */
-    float* tileColor(int x, int y);
+    private:
+        /**
+         * Active game state
+         */
+        GameState* m_game_state;
 
-    /**
-     * Gives back tileType of tile at position of given coordinates
-     *
-     * @param x x-coordinate of tile
-     * @param y y-coordinate of tile
-     * @return tileType
-     */
-    int tileType(int x, int y);
+        /**
+         * Map total size
+         */
+        int m_size;
 
-    /**
-     * Gives back boolean value if tile at position of given coordinates
-     * is in use (build on by a building) or not
-     *
-     * @param x x-coordinate of tile
-     * @param y y-coordinate of tile
-     * @return boolean if something is build on this tile
-     */
-    bool tileUsed(int x, int y);
+        /**
+         * Is set when creating of map is done, either on importing a map or on
+         * creating it by randomizer.
+         */
+        bool m_created;
 
-    /**
-     * Setting a tile build or not build. Called by Building class when
-     * buildings get build or destroyed.
-     *
-     * @param x x-coordinate of tile
-     * @param y y-coordinate of tile
-     * @param toggle boolean value if used or not
-     * @return pointer to tile which is changed
-     */
-    Tile* setTile(int x, int y, bool toggle);
-};
-
+        /**
+         *  Tile-based grid of the map
+         */
+        std::vector<std::vector<MapTile*>> m_tile_grid;
+    };
+}
 #endif /* defined(__Clash__Map__) */

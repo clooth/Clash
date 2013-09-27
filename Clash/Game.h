@@ -53,14 +53,13 @@ class FogOfWar;
 class Game {
 private:
     /**
-     * State of the game object
+     * The active state of the game
      */
-    GameState* gameState;
-    /**
-     * Audio for the game
-     */
-    Audio* audio;
+    GameState *m_game_state;
 
+    /**
+     *
+     */
     /**
      * Renderer Object
      */

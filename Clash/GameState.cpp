@@ -19,7 +19,6 @@
 #include "Timer.h"
 #include "GLRenderer.h"
 #include "FogOfWar.h"
-#include "Settings.h"
 
 GameState::GameState(Map* m, std::vector<Building*>* b, std::vector<Unit*>* u, int* a, Timer* t, std::string* aS, std::vector<Player*>* p, Tooltip* to, FogOfWar* fov) {
     this->screen = NULL;
@@ -34,12 +33,9 @@ GameState::GameState(Map* m, std::vector<Building*>* b, std::vector<Unit*>* u, i
     this->timer = t;
     this->announceText = aS;
     this->activeTooltip = to;
-
-    this->settings = new Settings();
 }
 
 GameState::~GameState() {
-	delete(settings);
 
 	if(renderer != NULL)
 		delete(renderer);
