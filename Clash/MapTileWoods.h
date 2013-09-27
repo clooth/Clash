@@ -9,6 +9,18 @@
 #ifndef __Clash__MapTileWoods__
 #define __Clash__MapTileWoods__
 
-#include <iostream>
+#include "MapTile.h"
+
+namespace Clash
+{
+    class MapTileWoods : public MapTile
+    {
+    public:
+        /**
+         * Default constructor
+         */
+        MapTileWoods(int x, int y);
+    };
+}
 
 #endif /* defined(__Clash__MapTileWoods__) */

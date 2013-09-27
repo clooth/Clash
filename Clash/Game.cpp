@@ -81,7 +81,7 @@ Game::Game() {
     this->currPosY = -1;
 
     this->keystates = NULL;
-    this->gameState = NULL;
+    this->m_game_state = NULL;
     this->screen = NULL;
     this->render = NULL;
     this->activeTooltip = NULL;
@@ -103,13 +103,13 @@ int Game::init() {
 	this->fogOfWar = new FogOfWar();
 
     // Gamestate Object
-    gameState = new GameState(&m,&buildings,&units,&announce,&timer, &announceText,&players,activeTooltip, fogOfWar);
+    m_game_state = new GameState(&m,&buildings,&units,&announce,&timer, &announceText,&players,activeTooltip, fogOfWar);
     
-    fogOfWar->setGameState(gameState);
+    fogOfWar->setGameState(m_game_state);
 
     // Init Map
     //m.createMap(MAPSIZE); <-- deprecated
-    m.setGameState(gameState);
+    m.set_game_state(m_game_state);
 
     // Audio, uncomment to play background sound
     //audio = new Audio();
@@ -153,10 +153,10 @@ int Game::init() {
     }
 
     // Initializing OpenGL
-    this->render = new GLRenderer(CFG_VIDEO_WIDTH, CFG_VIDEO_HEIGHT, gameState);
+    this->render = new GLRenderer(CFG_VIDEO_WIDTH, CFG_VIDEO_HEIGHT, m_game_state);
 
-    gameState->setScreen(screen);
-    gameState->setRenderer(render);
+    m_game_state->setScreen(screen);
+    m_game_state->setRenderer(render);
     render->setMousePointer(&mouseX, &mouseY);
 
     // This handles how sensitive the application is to key repeats, we
@@ -167,12 +167,12 @@ int Game::init() {
     // This is dirty hacky, need to outsource buildmenu very fast.
     // But at the moment, we create tooltips objects for our build
     // menu at this point.
-    buildMenuTT[0] = new Tooltip(21,gameState);
-    buildMenuTT[1] = new Tooltip(22,gameState);
-    buildMenuTT[2] = new Tooltip(23,gameState);
-    buildMenuTT[3] = new Tooltip(24,gameState);
-	buildMenuTT[4] = new Tooltip(25,gameState);
-	buildMenuTT[5] = new Tooltip(26,gameState);
+    buildMenuTT[0] = new Tooltip(21, m_game_state);
+    buildMenuTT[1] = new Tooltip(22, m_game_state);
+    buildMenuTT[2] = new Tooltip(23, m_game_state);
+    buildMenuTT[3] = new Tooltip(24, m_game_state);
+	buildMenuTT[4] = new Tooltip(25, m_game_state);
+	buildMenuTT[5] = new Tooltip(26, m_game_state);
 
     // Starting important Timers
     update.start(); 
@@ -182,7 +182,7 @@ int Game::init() {
     // I really need to redo import map method to get the ability to directly
     // code buildings into the map. But for the moment, startbuildings are
     // luaed.
-	s.gameState = gameState;
+	s.gameState = m_game_state;
 
 	//s.doFile("scripts/custom.lua");
 	//ingame = true;
@@ -379,22 +379,22 @@ void Game::BuildMenuInput(int type) {
 	// MOTIONS
 	if(type == 1) {
 		if(position == 1) {
-			this->gameState->setActiveTooltip(buildMenuTT[0]);
+			m_game_state->setActiveTooltip(buildMenuTT[0]);
 		}
 		if(position == 2) {
-			this->gameState->setActiveTooltip(buildMenuTT[1]);
+			m_game_state->setActiveTooltip(buildMenuTT[1]);
 		}
 		if(position == 3) {
-			this->gameState->setActiveTooltip(buildMenuTT[2]);
+			m_game_state->setActiveTooltip(buildMenuTT[2]);
 		}
 		if(position == 4) {
-			this->gameState->setActiveTooltip(buildMenuTT[3]);
+			m_game_state->setActiveTooltip(buildMenuTT[3]);
 		}
 		if(position == 5) {
-			this->gameState->setActiveTooltip(buildMenuTT[4]);
+			m_game_state->setActiveTooltip(buildMenuTT[4]);
 		}
 		if(position == 6) {
-			this->gameState->setActiveTooltip(buildMenuTT[5]);
+			m_game_state->setActiveTooltip(buildMenuTT[5]);
 		}
 	// CLICKS
 	} else if(type == 2) {
@@ -536,7 +536,7 @@ void Game::EventInput() {
             mouseX = event.button.x;
             mouseY = event.button.y;
             // Unset tooltip each motion
-            gameState->setActiveTooltip(NULL);
+            m_game_state->setActiveTooltip(NULL);
 
             // If mouse is over the actions area of units/buildings
             if( (mouseX >= CFG_VIDEO_WIDTH-240)  &&
@@ -603,7 +603,7 @@ void Game::EventInput() {
                 } 
                 
                 // Selecting building or unit if there is no build menu open
-                else if(m.tileUsed(x/64,y/64)) {
+                else if(m.is_tile_used(x/64,y/64)) {
                     // Basically goes through the array of each building on map and looks if mousepointer is
                     // on top of one of the tiles.
                     for(unsigned int k = 0; k < buildings.size(); k++) {
@@ -696,22 +696,22 @@ void Game::EventInput() {
 
                              // Need to do every check four times, to check borders of unit.
                              // Not on Buildings
-                            if(!(m.tileUsed((render->getCameraX()+event.button.x-(render->getCameraX()+event.button.x)%64)/64,
+                            if(!(m.is_tile_used((render->getCameraX()+event.button.x-(render->getCameraX()+event.button.x)%64)/64,
                                     (render->getCameraY()+event.button.y-(render->getCameraY()+event.button.y)%64)/64) ||
-                                 m.tileUsed((render->getCameraX()+event.button.x+32-(render->getCameraX()+event.button.x+32)%64)/64,
+                                 m.is_tile_used((render->getCameraX()+event.button.x+32-(render->getCameraX()+event.button.x+32)%64)/64,
                                     (render->getCameraY()+event.button.y-(render->getCameraY()+event.button.y)%64)/64) ||
-                                 m.tileUsed((render->getCameraX()+event.button.x-(render->getCameraX()+event.button.x)%64)/64,
+                                 m.is_tile_used((render->getCameraX()+event.button.x-(render->getCameraX()+event.button.x)%64)/64,
                                     (render->getCameraY()+event.button.y+32-(render->getCameraY()+event.button.y+32)%64)/64) ||
-                                 m.tileUsed((render->getCameraX()+event.button.x+32-(render->getCameraX()+event.button.x+32)%64)/64,
+                                 m.is_tile_used((render->getCameraX()+event.button.x+32-(render->getCameraX()+event.button.x+32)%64)/64,
                                     (render->getCameraY()+event.button.y+32-(render->getCameraY()+event.button.y+32)%64)/64) ||
                                  // Not on Grass
-                                 m.tileType((render->getCameraX()+event.button.x-(render->getCameraX()+event.button.x)%64)/64,
+                                 m.tile_type((render->getCameraX()+event.button.x-(render->getCameraX()+event.button.x)%64)/64,
                                     (render->getCameraY()+event.button.y-(render->getCameraY()+event.button.y)%64)/64) != 1  ||
-                                 m.tileType((render->getCameraX()+event.button.x+32-(render->getCameraX()+event.button.x+32)%64)/64,
+                                 m.tile_type((render->getCameraX()+event.button.x+32-(render->getCameraX()+event.button.x+32)%64)/64,
                                     (render->getCameraY()+event.button.y-(render->getCameraY()+event.button.y)%64)/64) != 1  ||
-                                 m.tileType((render->getCameraX()+event.button.x-(render->getCameraX()+event.button.x)%64)/64,
+                                 m.tile_type((render->getCameraX()+event.button.x-(render->getCameraX()+event.button.x)%64)/64,
                                     (render->getCameraY()+event.button.y+32-(render->getCameraY()+event.button.y+32)%64)/64) != 1  ||
-                                 m.tileType((render->getCameraX()+event.button.x+32-(render->getCameraX()+event.button.x+32)%64)/64,
+                                 m.tile_type((render->getCameraX()+event.button.x+32-(render->getCameraX()+event.button.x+32)%64)/64,
                                     (render->getCameraY()+event.button.y+32-(render->getCameraY()+event.button.y+32)%64)/64) != 1)) {
                             	((Unit*)activatedObject[i])->newMove();
                                 ((Unit*)activatedObject[i])->moveTo(render->getCameraX()+event.button.x,render->getCameraY()+event.button.y);
@@ -773,15 +773,15 @@ void Game::EventInput() {
 }
 
 int Game::placeBuilding() {
-    int size = gameState->getData()->getSize(buildMenuID);
+    int size = m_game_state->getData()->getSize(buildMenuID);
     // Checks if building is buildable at this place
     for(int i = 0; i<size; i++) {
         for(int j = 0; j<size; j++) {
-            if(m.tileUsed(  (render->getCameraX()+event.button.x-((render->getCameraX()+event.button.x)%64)-64)/64+i,
+            if(m.is_tile_used(  (render->getCameraX()+event.button.x-((render->getCameraX()+event.button.x)%64)-64)/64+i,
                             (render->getCameraY()+event.button.y-((render->getCameraY()+event.button.y)%64)-64)/64+j)) {
                 return 1;
             }
-            if(m.tileType(  (render->getCameraX()+event.button.x-((render->getCameraX()+event.button.x)%64)-64)/64+i,
+            if(m.tile_type(  (render->getCameraX()+event.button.x-((render->getCameraX()+event.button.x)%64)-64)/64+i,
                             (render->getCameraY()+event.button.y-((render->getCameraY()+event.button.y)%64)-64)/64+j) != 1) {
                 return 1;
             }
@@ -792,61 +792,61 @@ int Game::placeBuilding() {
 
     switch (buildMenuID) {
         case 21:
-            if(gameState->getPlayers()->operator [](0)->getRessources()->getGold() >= gameState->getData()->getGoldPrices(buildMenuID)) {
+            if(m_game_state->getPlayers()->operator [](0)->getRessources()->getGold() >= m_game_state->getData()->getGoldPrices(buildMenuID)) {
                 buildings.push_back(new CommandCenter(  (render->getCameraX()+event.button.x-((render->getCameraX()+event.button.x)%64)-64)/64,
-                                                        (render->getCameraY()+event.button.y-((render->getCameraY()+event.button.y)%64)-64)/64, gameState, players[0]));
+                                                        (render->getCameraY()+event.button.y-((render->getCameraY()+event.button.y)%64)-64)/64, m_game_state, players[0]));
             } else {
                 help = true;
             }
             break;
         case 22:
-            if(gameState->getPlayers()->operator [](0)->getRessources()->getGold() >= gameState->getData()->getGoldPrices(buildMenuID)) {
+            if(m_game_state->getPlayers()->operator [](0)->getRessources()->getGold() >= m_game_state->getData()->getGoldPrices(buildMenuID)) {
                 buildings.push_back(new Barracks(   (render->getCameraX()+event.button.x-((render->getCameraX()+event.button.x)%64)-64)/64,
-                                                    (render->getCameraY()+event.button.y-((render->getCameraY()+event.button.y)%64)-64)/64, gameState, players[0]));
+                                                    (render->getCameraY()+event.button.y-((render->getCameraY()+event.button.y)%64)-64)/64, m_game_state, players[0]));
             } else {
                 help = true;
             }
             break;
         case 23:
-			if(gameState->getPlayers()->operator [](0)->getRessources()->getGold() >= gameState->getData()->getGoldPrices(buildMenuID)) {
+			if(m_game_state->getPlayers()->operator [](0)->getRessources()->getGold() >= m_game_state->getData()->getGoldPrices(buildMenuID)) {
 				buildings.push_back(new SupplyDepot(   (render->getCameraX()+event.button.x-((render->getCameraX()+event.button.x)%64)-64)/64,
-													   (render->getCameraY()+event.button.y-((render->getCameraY()+event.button.y)%64)-64)/64, gameState, players[0]));
+													   (render->getCameraY()+event.button.y-((render->getCameraY()+event.button.y)%64)-64)/64, m_game_state, players[0]));
 			} else {
 				help = true;
 			}
 			break;
         case 24:
-			if(gameState->getPlayers()->operator [](0)->getRessources()->getGold() >= gameState->getData()->getGoldPrices(buildMenuID)) {
+			if(m_game_state->getPlayers()->operator [](0)->getRessources()->getGold() >= m_game_state->getData()->getGoldPrices(buildMenuID)) {
 				buildings.push_back(new ResearchLab(   (render->getCameraX()+event.button.x-((render->getCameraX()+event.button.x)%64)-64)/64,
-													   (render->getCameraY()+event.button.y-((render->getCameraY()+event.button.y)%64)-64)/64, gameState, players[0]));
+													   (render->getCameraY()+event.button.y-((render->getCameraY()+event.button.y)%64)-64)/64, m_game_state, players[0]));
 			} else {
 				help = true;
 			}
 			break;
         case 25:
-			if(gameState->getPlayers()->operator [](0)->getRessources()->getGold() >= gameState->getData()->getGoldPrices(buildMenuID)) {
+			if(m_game_state->getPlayers()->operator [](0)->getRessources()->getGold() >= m_game_state->getData()->getGoldPrices(buildMenuID)) {
 				buildings.push_back(new Factory(   (render->getCameraX()+event.button.x-((render->getCameraX()+event.button.x)%64)-64)/64,
-												   (render->getCameraY()+event.button.y-((render->getCameraY()+event.button.y)%64)-64)/64, gameState, players[0]));
+												   (render->getCameraY()+event.button.y-((render->getCameraY()+event.button.y)%64)-64)/64, m_game_state, players[0]));
 			} else {
 				help = true;
 			}
 			break;
         case 26:
-			if(gameState->getPlayers()->operator [](0)->getRessources()->getGold() >= gameState->getData()->getGoldPrices(buildMenuID)) {
+			if(m_game_state->getPlayers()->operator [](0)->getRessources()->getGold() >= m_game_state->getData()->getGoldPrices(buildMenuID)) {
 				buildings.push_back(new MilAirport(   (render->getCameraX()+event.button.x-((render->getCameraX()+event.button.x)%64)-64)/64,
-												   	  (render->getCameraY()+event.button.y-((render->getCameraY()+event.button.y)%64)-64)/64, gameState, players[0]));
+												   	  (render->getCameraY()+event.button.y-((render->getCameraY()+event.button.y)%64)-64)/64, m_game_state, players[0]));
 			} else {
 				help = true;
 			}
 			break;
     }
     if(help) {
-        gameState->setAnnounceText("You don't have enough ressources.");
-        gameState->updateAnnounce();
+        m_game_state->setAnnounceText("You don't have enough ressources.");
+        m_game_state->updateAnnounce();
     } else {
     	// Subtract building costs from ressources.
-        gameState->getPlayers()->operator [](0)->getRessources()->setGold(gameState->getPlayers()->operator [](0)->getRessources()->getGold()-gameState->getData()->getGoldPrices(buildMenuID));
-        gameState->getPlayers()->operator [](0)->getRessources()->setGas(gameState->getPlayers()->operator [](0)->getRessources()->getGas()-gameState->getData()->getGasPrices(buildMenuID));
+        m_game_state->getPlayers()->operator [](0)->getRessources()->setGold(m_game_state->getPlayers()->operator [](0)->getRessources()->getGold()-m_game_state->getData()->getGoldPrices(buildMenuID));
+        m_game_state->getPlayers()->operator [](0)->getRessources()->setGas(m_game_state->getPlayers()->operator [](0)->getRessources()->getGas()-m_game_state->getData()->getGasPrices(buildMenuID));
     }
     
     buildGrid = false;
@@ -922,5 +922,5 @@ Game::~Game() {
 
     delete(fogOfWar);
 
-    delete(gameState);
+    delete(m_game_state);
 }

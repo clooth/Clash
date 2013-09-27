@@ -41,7 +41,7 @@
 #include "Map.h"
 #include "GameState.h"
 #include "Texture.h"
-#include "Tile.h"
+#include "MapTile.h"
 #include "FogOfWar.h"
 #include "Building.h"
 #include "Unit.h"
@@ -327,7 +327,7 @@ int GLRenderer::DrawMinimap() {
 	// Tiles
 	for(int i = 0; i<110; i++) {
 		for(int j = 0; j<110; j++) {
-			DrawMinimapPoint(i,j,gameState->getMap()->tileColor(i, j));
+			DrawMinimapPoint(i,j,gameState->getMap()->tile_color(i, j));
 		}
 	}
 
@@ -370,8 +370,8 @@ int GLRenderer::DrawTiles() {
 	// Tiles
 	for(int i = cameraX/64; i<(cameraX+targetWidth+64)/64; i+=1) {
 		for(int j = cameraY/64; j<(cameraY+targetHeight+64)/64; j+=1) {
-			if(j < gameState->getMap()->getSize() && i < gameState->getMap()->getSize()) {
-				DrawTextures(i*64,j*64,this->gameState->getMap()->tileID(i,j));
+			if(j < gameState->getMap()->get_size() && i < gameState->getMap()->get_size()) {
+				DrawTextures(i*64,j*64,this->gameState->getMap()->tile_id(i,j));
 			}
 		}
 	}
@@ -912,11 +912,11 @@ int GLRenderer::DrawBuildGrid(int id) {
 			bool help = true;
 			for(int k = -1; k<gameState->getData()->getSize(id)-1; k+=1) {
 				for(int l = -1; l<gameState->getData()->getSize(id)-1; l+=1) {
-					if(((*mouseX)+cameraX-((*mouseX)+cameraX)%64+k*64)/64 < gameState->getMap()->getSize() &&
-					   ((*mouseX)+cameraX-((*mouseX)+cameraX)%64+l*64)/64 < gameState->getMap()->getSize()) {
-						if(gameState->getMap()->tileUsed(((*mouseX)+cameraX-((*mouseX)+cameraX)%64+k*64)/64,
+					if(((*mouseX)+cameraX-((*mouseX)+cameraX)%64+k*64)/64 < gameState->getMap()->get_size() &&
+					   ((*mouseX)+cameraX-((*mouseX)+cameraX)%64+l*64)/64 < gameState->getMap()->get_size()) {
+						if(gameState->getMap()->is_tile_used(((*mouseX)+cameraX-((*mouseX)+cameraX)%64+k*64)/64,
 														 ((*mouseY)+cameraY-((*mouseY)+cameraY)%64+l*64)/64) ||
-						   gameState->getMap()->tileType(((*mouseX)+cameraX-((*mouseX)+cameraX)%64+k*64)/64,
+						   gameState->getMap()->tile_type(((*mouseX)+cameraX-((*mouseX)+cameraX)%64+k*64)/64,
 														 ((*mouseY)+cameraY-((*mouseY)+cameraY)%64+l*64)/64) != 1) {
 							help = false;
 						}
@@ -945,8 +945,8 @@ int GLRenderer::DrawBuildGrid(int id) {
 	// Used tiles
 	for(int i = cameraX/64; i < cameraX/64+12; i++) {
 		for(int j = cameraY/64; j < cameraY/64+16; j++) {
-			if(j < gameState->getMap()->getSize() && i < gameState->getMap()->getSize()) {
-				if(gameState->getMap()->tileUsed(i,j) || gameState->getMap()->tileType(i,j) != 1) {
+			if(j < gameState->getMap()->get_size() && i < gameState->getMap()->get_size()) {
+				if(gameState->getMap()->is_tile_used(i,j) || gameState->getMap()->tile_type(i,j) != 1) {
 					// Horizontal and vertical lines on screen
 					glPushMatrix();
 

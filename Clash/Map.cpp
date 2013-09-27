@@ -66,50 +66,50 @@ namespace Clash
                             m_tile_grid[j][i] = new MapTileGrass(j, i);
                             break;
                         case 01:
-                            m_tile_grid[j][i] = new TilesWater(j, i);
+                            m_tile_grid[j][i] = new MapTileWater(j, i);
                             break;
                         case 02:
-                            m_tile_grid[j][i] = new TilesPineWoods(j, i);
+                            m_tile_grid[j][i] = new MapTileWoods(j, i);
                             break;
                         case 03:
-                            m_tile_grid[j][i] = new TilesGrass(j, i);
-                            m_game_state->getBuildings()->push_back(new Gold(j,i,gameState));
+                            m_tile_grid[j][i] = new MapTileGrass(j, i);
+                            m_game_state->getBuildings()->push_back(new Gold(j, i, m_game_state));
                             break;
                     }
                 }
             }
-            created = true;
+            m_created = true;
         }
-        return 0;
+
+        return true;
     }
 
-    int Map::tileID(int x, int y) {
-        return this->grid[x][y]->getID();
+    int Map::tile_id(int x, int y) {
+        return m_tile_grid[x][y]->get_id();
     }
 
-    int Map::tileType(int x, int y) {
-        return this->grid[x][y]->getType();
+    int Map::tile_type(int x, int y) {
+        return m_tile_grid[x][y]->get_type();
     }
 
-    float* Map::tileColor(int x, int y) {
-        return this->grid[x][y]->getMColor();
+    float* Map::tile_color(int x, int y) {
+        return m_tile_grid[x][y]->get_minimap_color();
     }
     
-    Tile* Map::setTile(int x, int y, bool toggle) {
-        this->grid[x][y]->setUsed(toggle);
-        return grid[x][y];
+    MapTile* Map::set_tile(int x, int y, bool toggle) {
+        m_tile_grid[x][y]->set_in_use(toggle);
+        return m_tile_grid[x][y];
     }
     
     Map::~Map() {
-        for(unsigned int i=0; i<grid.size();i++) {
-            for(unsigned int j=0; j<grid[i].size();j++) {
-                delete(grid[i][j]);
+        for(unsigned int i=0; i<m_tile_grid.size();i++) {
+            for(unsigned int j=0; j<m_tile_grid[i].size();j++) {
+                delete(m_tile_grid[i][j]);
             }
         }
     }
     
-    int Map::getSize() const {
-        return this->size;
+    int Map::get_size() const {
+        return m_size;
     }
-
 }

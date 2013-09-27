@@ -14,11 +14,14 @@
 
 #include "GameData.h"
 
+namespace Clash {
+    class Map;
+}
+
 class Player;
 class Building;
 class Unit;
 class Ressources;
-class Map;
 class Timer;
 class Tooltip;
 class SDL_Surface;
@@ -51,7 +54,7 @@ public:
      * @param to pointer to tooltip which is currently displayed
      * @param fov pointer to fog of war object
      */
-    GameState(Map* m, std::vector<Building*>* b,
+    GameState(Clash::Map* m, std::vector<Building*>* b,
     		  std::vector<Unit*>* u, int* a, Timer* t,
     		  std::string* aS, std::vector<Player*>* p,
     		  Tooltip* to, FogOfWar* fov);
@@ -73,7 +76,7 @@ public:
      *
      * @return pointer
      */
-    Map* getMap();
+    Clash::Map* getMap();
 
     /**
      * Get pointer to vector of buildings
@@ -180,7 +183,7 @@ private:
     /**
      * Pointer to games map
      */
-    Map* map;
+    Clash::Map* map;
 
     /**
      * Pointer to vector of games buildings

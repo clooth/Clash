@@ -12,13 +12,7 @@
 		03047E2D17F4686400ECDFFA /* nice_music.ogg in Resources */ = {isa = PBXBuildFile; fileRef = 03047E2C17F4686400ECDFFA /* nice_music.ogg */; };
 		03047E2F17F4686400ECDFFA /* sansation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 03047E2E17F4686400ECDFFA /* sansation.ttf */; };
 		03047E3117F4686400ECDFFA /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 03047E3017F4686400ECDFFA /* icon.png */; };
-		03047E5A17F47A1300ECDFFA /* sfml-audio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03047E5417F47A1300ECDFFA /* sfml-audio.framework */; };
-		03047E5B17F47A1300ECDFFA /* sfml-graphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03047E5517F47A1300ECDFFA /* sfml-graphics.framework */; };
-		03047E5C17F47A1300ECDFFA /* sfml-network.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03047E5617F47A1300ECDFFA /* sfml-network.framework */; };
-		03047E5D17F47A1300ECDFFA /* sfml-system.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03047E5717F47A1300ECDFFA /* sfml-system.framework */; };
-		03047E5E17F47A1300ECDFFA /* sfml-window.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03047E5817F47A1300ECDFFA /* sfml-window.framework */; };
-		03047E5F17F47A1300ECDFFA /* SFML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03047E5917F47A1300ECDFFA /* SFML.framework */; };
-		03047E6217F484BF00ECDFFA /* Tile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03047E6017F484BF00ECDFFA /* Tile.cpp */; };
+		03047E6217F484BF00ECDFFA /* MapTile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03047E6017F484BF00ECDFFA /* MapTile.cpp */; };
 		03047E6517F4851800ECDFFA /* GameData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03047E6317F4851800ECDFFA /* GameData.cpp */; };
 		03047E6817F4855E00ECDFFA /* GameState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03047E6617F4855E00ECDFFA /* GameState.cpp */; };
 		03047E6B17F485D900ECDFFA /* GameObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03047E6917F485D900ECDFFA /* GameObject.cpp */; };
@@ -58,8 +52,10 @@
 		03047EDA17F4992600ECDFFA /* images in Resources */ = {isa = PBXBuildFile; fileRef = 03047ED917F4992500ECDFFA /* images */; };
 		03047EDC17F4992B00ECDFFA /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 03047EDB17F4992B00ECDFFA /* fonts */; };
 		03047EDE17F4995700ECDFFA /* cfg in Resources */ = {isa = PBXBuildFile; fileRef = 03047EDD17F4995700ECDFFA /* cfg */; };
-		03047EDF17F49BD500ECDFFA /* libboost_program_options-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 03047E4517F4699900ECDFFA /* libboost_program_options-mt.dylib */; };
-		03047EE217F49BEA00ECDFFA /* Settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03047EE017F49BEA00ECDFFA /* Settings.cpp */; };
+		03047EE617F4B7EB00ECDFFA /* liblua.5.1.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 03047EE517F4B7EB00ECDFFA /* liblua.5.1.5.dylib */; };
+		03047EEE17F4E64800ECDFFA /* MapTileGrass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03047EEC17F4E64800ECDFFA /* MapTileGrass.cpp */; };
+		03047EF117F4E7A800ECDFFA /* MapTileWater.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03047EEF17F4E7A800ECDFFA /* MapTileWater.cpp */; };
+		03047EF417F4E88200ECDFFA /* MapTileWoods.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03047EF217F4E88200ECDFFA /* MapTileWoods.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,24 +68,8 @@
 		03047E2C17F4686400ECDFFA /* nice_music.ogg */ = {isa = PBXFileReference; lastKnownFileType = file; path = nice_music.ogg; sourceTree = "<group>"; };
 		03047E2E17F4686400ECDFFA /* sansation.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sansation.ttf; sourceTree = "<group>"; };
 		03047E3017F4686400ECDFFA /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
-		03047E3717F4687200ECDFFA /* sfml-audio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-audio.framework"; path = "/Library/Frameworks/sfml-audio.framework"; sourceTree = "<absolute>"; };
-		03047E3817F4687200ECDFFA /* sfml-graphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-graphics.framework"; path = "/Library/Frameworks/sfml-graphics.framework"; sourceTree = "<absolute>"; };
-		03047E3917F4687200ECDFFA /* sfml-network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-network.framework"; path = "/Library/Frameworks/sfml-network.framework"; sourceTree = "<absolute>"; };
-		03047E3A17F4687200ECDFFA /* sfml-system.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-system.framework"; path = "/Library/Frameworks/sfml-system.framework"; sourceTree = "<absolute>"; };
-		03047E3B17F4687200ECDFFA /* sfml-window.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-window.framework"; path = "/Library/Frameworks/sfml-window.framework"; sourceTree = "<absolute>"; };
-		03047E3C17F4687200ECDFFA /* SFML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SFML.framework; path = /Library/Frameworks/SFML.framework; sourceTree = "<absolute>"; };
-		03047E4517F4699900ECDFFA /* libboost_program_options-mt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libboost_program_options-mt.dylib"; path = "../../../../usr/local/Cellar/boost/1.54.0/lib/libboost_program_options-mt.dylib"; sourceTree = "<group>"; };
-		03047E4A17F46C5900ECDFFA /* libboost_system-mt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libboost_system-mt.dylib"; path = "../../../../usr/local/Cellar/boost/1.54.0/lib/libboost_system-mt.dylib"; sourceTree = "<group>"; };
-		03047E4D17F46CA300ECDFFA /* libboost_program_options-mt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_program_options-mt.a"; path = "../../../../usr/local/Cellar/boost/1.54.0/lib/libboost_program_options-mt.a"; sourceTree = "<group>"; };
-		03047E5217F4701000ECDFFA /* libboost_system-mt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_system-mt.a"; path = "../../../../usr/local/Cellar/boost/1.54.0/lib/libboost_system-mt.a"; sourceTree = "<group>"; };
-		03047E5417F47A1300ECDFFA /* sfml-audio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-audio.framework"; path = "../../../../usr/local/Frameworks/sfml-audio.framework"; sourceTree = "<group>"; };
-		03047E5517F47A1300ECDFFA /* sfml-graphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-graphics.framework"; path = "../../../../usr/local/Frameworks/sfml-graphics.framework"; sourceTree = "<group>"; };
-		03047E5617F47A1300ECDFFA /* sfml-network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-network.framework"; path = "../../../../usr/local/Frameworks/sfml-network.framework"; sourceTree = "<group>"; };
-		03047E5717F47A1300ECDFFA /* sfml-system.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-system.framework"; path = "../../../../usr/local/Frameworks/sfml-system.framework"; sourceTree = "<group>"; };
-		03047E5817F47A1300ECDFFA /* sfml-window.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-window.framework"; path = "../../../../usr/local/Frameworks/sfml-window.framework"; sourceTree = "<group>"; };
-		03047E5917F47A1300ECDFFA /* SFML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SFML.framework; path = ../../../../usr/local/Frameworks/SFML.framework; sourceTree = "<group>"; };
-		03047E6017F484BF00ECDFFA /* Tile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Tile.cpp; sourceTree = "<group>"; };
-		03047E6117F484BF00ECDFFA /* Tile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tile.h; sourceTree = "<group>"; };
+		03047E6017F484BF00ECDFFA /* MapTile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MapTile.cpp; sourceTree = "<group>"; };
+		03047E6117F484BF00ECDFFA /* MapTile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapTile.h; sourceTree = "<group>"; };
 		03047E6317F4851800ECDFFA /* GameData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameData.cpp; sourceTree = "<group>"; };
 		03047E6417F4851800ECDFFA /* GameData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameData.h; sourceTree = "<group>"; };
 		03047E6617F4855E00ECDFFA /* GameState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameState.cpp; sourceTree = "<group>"; };
@@ -150,8 +130,14 @@
 		03047ED917F4992500ECDFFA /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = images; sourceTree = "<group>"; };
 		03047EDB17F4992B00ECDFFA /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		03047EDD17F4995700ECDFFA /* cfg */ = {isa = PBXFileReference; lastKnownFileType = folder; path = cfg; sourceTree = "<group>"; };
-		03047EE017F49BEA00ECDFFA /* Settings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Settings.cpp; sourceTree = "<group>"; };
-		03047EE117F49BEA00ECDFFA /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
+		03047EE517F4B7EB00ECDFFA /* liblua.5.1.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = liblua.5.1.5.dylib; path = ../../../../usr/local/Cellar/lua/5.1.5/lib/liblua.5.1.5.dylib; sourceTree = "<group>"; };
+		03047EE717F4D0F100ECDFFA /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
+		03047EEC17F4E64800ECDFFA /* MapTileGrass.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MapTileGrass.cpp; sourceTree = "<group>"; };
+		03047EED17F4E64800ECDFFA /* MapTileGrass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapTileGrass.h; sourceTree = "<group>"; };
+		03047EEF17F4E7A800ECDFFA /* MapTileWater.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MapTileWater.cpp; sourceTree = "<group>"; };
+		03047EF017F4E7A800ECDFFA /* MapTileWater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapTileWater.h; sourceTree = "<group>"; };
+		03047EF217F4E88200ECDFFA /* MapTileWoods.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MapTileWoods.cpp; sourceTree = "<group>"; };
+		03047EF317F4E88200ECDFFA /* MapTileWoods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapTileWoods.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,7 +145,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				03047EDF17F49BD500ECDFFA /* libboost_program_options-mt.dylib in Frameworks */,
+				03047EE617F4B7EB00ECDFFA /* liblua.5.1.5.dylib in Frameworks */,
 				03047ED417F498FB00ECDFFA /* Cocoa.framework in Frameworks */,
 				03047EAF17F4964C00ECDFFA /* Foundation.framework in Frameworks */,
 				03047EAD17F4964200ECDFFA /* OpenGL.framework in Frameworks */,
@@ -167,12 +153,6 @@
 				03047EA917F4963700ECDFFA /* SDL_mixer.framework in Frameworks */,
 				03047EAA17F4963700ECDFFA /* SDL_ttf.framework in Frameworks */,
 				03047EAB17F4963700ECDFFA /* SDL.framework in Frameworks */,
-				03047E5A17F47A1300ECDFFA /* sfml-audio.framework in Frameworks */,
-				03047E5B17F47A1300ECDFFA /* sfml-graphics.framework in Frameworks */,
-				03047E5C17F47A1300ECDFFA /* sfml-network.framework in Frameworks */,
-				03047E5D17F47A1300ECDFFA /* sfml-system.framework in Frameworks */,
-				03047E5E17F47A1300ECDFFA /* sfml-window.framework in Frameworks */,
-				03047E5F17F47A1300ECDFFA /* SFML.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,6 +200,7 @@
 		03047E2917F4686400ECDFFA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				03047EE917F4D9BE00ECDFFA /* Game Data */,
 				03047EDD17F4995700ECDFFA /* cfg */,
 				03047EDB17F4992B00ECDFFA /* fonts */,
 				03047ED917F4992500ECDFFA /* images */,
@@ -237,6 +218,7 @@
 		03047E4317F4687800ECDFFA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				03047EE517F4B7EB00ECDFFA /* liblua.5.1.5.dylib */,
 				03047ED317F498FB00ECDFFA /* Cocoa.framework */,
 				03047EAE17F4964C00ECDFFA /* Foundation.framework */,
 				03047EAC17F4964200ECDFFA /* OpenGL.framework */,
@@ -244,22 +226,6 @@
 				03047EA517F4963700ECDFFA /* SDL_mixer.framework */,
 				03047EA617F4963700ECDFFA /* SDL_ttf.framework */,
 				03047EA717F4963700ECDFFA /* SDL.framework */,
-				03047E5417F47A1300ECDFFA /* sfml-audio.framework */,
-				03047E5517F47A1300ECDFFA /* sfml-graphics.framework */,
-				03047E5617F47A1300ECDFFA /* sfml-network.framework */,
-				03047E5717F47A1300ECDFFA /* sfml-system.framework */,
-				03047E5817F47A1300ECDFFA /* sfml-window.framework */,
-				03047E5917F47A1300ECDFFA /* SFML.framework */,
-				03047E5217F4701000ECDFFA /* libboost_system-mt.a */,
-				03047E4D17F46CA300ECDFFA /* libboost_program_options-mt.a */,
-				03047E4A17F46C5900ECDFFA /* libboost_system-mt.dylib */,
-				03047E4517F4699900ECDFFA /* libboost_program_options-mt.dylib */,
-				03047E3717F4687200ECDFFA /* sfml-audio.framework */,
-				03047E3817F4687200ECDFFA /* sfml-graphics.framework */,
-				03047E3917F4687200ECDFFA /* sfml-network.framework */,
-				03047E3A17F4687200ECDFFA /* sfml-system.framework */,
-				03047E3B17F4687200ECDFFA /* sfml-window.framework */,
-				03047E3C17F4687200ECDFFA /* SFML.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -267,59 +233,87 @@
 		03047E4417F468CE00ECDFFA /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				03047EE017F49BEA00ECDFFA /* Settings.cpp */,
-				03047EE117F49BEA00ECDFFA /* Settings.h */,
-				03047ED017F498D000ECDFFA /* SDLMain.h */,
-				03047ED117F498D000ECDFFA /* SDLMain.m */,
-				03047EB317F496F800ECDFFA /* Scripting.cpp */,
-				03047EB417F496F800ECDFFA /* Scripting.h */,
+				03047EEA17F4DFCB00ECDFFA /* Map */,
+				03047E9617F4960400ECDFFA /* AStarPath.cpp */,
+				03047E9717F4960400ECDFFA /* AStarPath.h */,
+				03047E6C17F485FB00ECDFFA /* Building.cpp */,
+				03047E6D17F485FB00ECDFFA /* Building.h */,
+				03047E9017F4953300ECDFFA /* clipper.cpp */,
+				03047E9117F4953300ECDFFA /* clipper.hpp */,
+				03047EE717F4D0F100ECDFFA /* Config.h */,
 				03047EB017F496EA00ECDFFA /* Game.cpp */,
 				03047EB117F496EA00ECDFFA /* Game.h */,
+				03047E6317F4851800ECDFFA /* GameData.cpp */,
+				03047E6417F4851800ECDFFA /* GameData.h */,
+				03047E6917F485D900ECDFFA /* GameObject.cpp */,
+				03047E6A17F485D900ECDFFA /* GameObject.h */,
+				03047E6617F4855E00ECDFFA /* GameState.cpp */,
+				03047E6717F4855E00ECDFFA /* GameState.h */,
 				03047E9F17F4961E00ECDFFA /* GitSHA1.cpp */,
 				03047EA017F4961E00ECDFFA /* GitSHA1.cpp.in */,
 				03047EA117F4961E00ECDFFA /* GitSHA1.h */,
-				03047E9617F4960400ECDFFA /* AStarPath.cpp */,
-				03047E9717F4960400ECDFFA /* AStarPath.h */,
-				03047E9817F4960400ECDFFA /* Texture.cpp */,
-				03047E9917F4960400ECDFFA /* Texture.h */,
-				03047E9A17F4960400ECDFFA /* Tooltip.cpp */,
-				03047E9B17F4960400ECDFFA /* Tooltip.h */,
-				03047E9317F4954000ECDFFA /* FogOfWar.cpp */,
-				03047E9417F4954000ECDFFA /* FogOfWar.h */,
-				03047E9017F4953300ECDFFA /* clipper.cpp */,
-				03047E9117F4953300ECDFFA /* clipper.hpp */,
 				03047E8A17F4886A00ECDFFA /* GLRenderer.cpp */,
 				03047E8B17F4886A00ECDFFA /* GLRenderer.h */,
 				03047E8C17F4886A00ECDFFA /* GLTesselation.cpp */,
 				03047E8D17F4886A00ECDFFA /* GLTesselation.h */,
-				03047E6017F484BF00ECDFFA /* Tile.cpp */,
-				03047E6117F484BF00ECDFFA /* Tile.h */,
-				03047E6317F4851800ECDFFA /* GameData.cpp */,
-				03047E6417F4851800ECDFFA /* GameData.h */,
-				03047E6617F4855E00ECDFFA /* GameState.cpp */,
-				03047E6717F4855E00ECDFFA /* GameState.h */,
-				03047E6917F485D900ECDFFA /* GameObject.cpp */,
-				03047E6A17F485D900ECDFFA /* GameObject.h */,
-				03047E6C17F485FB00ECDFFA /* Building.cpp */,
-				03047E6D17F485FB00ECDFFA /* Building.h */,
-				03047E6F17F4862C00ECDFFA /* Timer.cpp */,
-				03047E7017F4862C00ECDFFA /* Timer.h */,
-				03047E7217F4865B00ECDFFA /* Unit.cpp */,
-				03047E7317F4865B00ECDFFA /* Unit.h */,
-				03047E7517F4868400ECDFFA /* Map.cpp */,
-				03047E7617F4868400ECDFFA /* Map.h */,
-				03047E7817F486A600ECDFFA /* Node.cpp */,
-				03047E7917F486A600ECDFFA /* Node.h */,
+				03047E8117F4870D00ECDFFA /* Particle.cpp */,
+				03047E8217F4870D00ECDFFA /* Particle.h */,
 				03047E7B17F486C300ECDFFA /* Player.cpp */,
 				03047E7C17F486C300ECDFFA /* Player.h */,
 				03047E7E17F486E500ECDFFA /* Ressources.cpp */,
 				03047E7F17F486E500ECDFFA /* Ressources.h */,
-				03047E8117F4870D00ECDFFA /* Particle.cpp */,
-				03047E8217F4870D00ECDFFA /* Particle.h */,
+				03047ED017F498D000ECDFFA /* SDLMain.h */,
+				03047ED117F498D000ECDFFA /* SDLMain.m */,
 				03047E8417F4873100ECDFFA /* SDL_Functions.cpp */,
 				03047E8517F4873100ECDFFA /* SDL_Functions.h */,
+				03047EB317F496F800ECDFFA /* Scripting.cpp */,
+				03047EB417F496F800ECDFFA /* Scripting.h */,
+				03047E9817F4960400ECDFFA /* Texture.cpp */,
+				03047E9917F4960400ECDFFA /* Texture.h */,
+				03047E6F17F4862C00ECDFFA /* Timer.cpp */,
+				03047E7017F4862C00ECDFFA /* Timer.h */,
+				03047E9A17F4960400ECDFFA /* Tooltip.cpp */,
+				03047E9B17F4960400ECDFFA /* Tooltip.h */,
+				03047E7217F4865B00ECDFFA /* Unit.cpp */,
+				03047E7317F4865B00ECDFFA /* Unit.h */,
 			);
 			name = Classes;
+			sourceTree = "<group>";
+		};
+		03047EE917F4D9BE00ECDFFA /* Game Data */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Game Data";
+			sourceTree = "<group>";
+		};
+		03047EEA17F4DFCB00ECDFFA /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				03047EEB17F4E31000ECDFFA /* Map Tiles */,
+				03047E7517F4868400ECDFFA /* Map.cpp */,
+				03047E7617F4868400ECDFFA /* Map.h */,
+				03047E7817F486A600ECDFFA /* Node.cpp */,
+				03047E7917F486A600ECDFFA /* Node.h */,
+				03047E9317F4954000ECDFFA /* FogOfWar.cpp */,
+				03047E9417F4954000ECDFFA /* FogOfWar.h */,
+			);
+			name = Map;
+			sourceTree = "<group>";
+		};
+		03047EEB17F4E31000ECDFFA /* Map Tiles */ = {
+			isa = PBXGroup;
+			children = (
+				03047E6017F484BF00ECDFFA /* MapTile.cpp */,
+				03047E6117F484BF00ECDFFA /* MapTile.h */,
+				03047EEC17F4E64800ECDFFA /* MapTileGrass.cpp */,
+				03047EED17F4E64800ECDFFA /* MapTileGrass.h */,
+				03047EEF17F4E7A800ECDFFA /* MapTileWater.cpp */,
+				03047EF017F4E7A800ECDFFA /* MapTileWater.h */,
+				03047EF217F4E88200ECDFFA /* MapTileWoods.cpp */,
+				03047EF317F4E88200ECDFFA /* MapTileWoods.h */,
+			);
+			name = "Map Tiles";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -420,6 +414,7 @@
 				03047E8F17F4886A00ECDFFA /* GLTesselation.cpp in Sources */,
 				03047EB217F496EA00ECDFFA /* Game.cpp in Sources */,
 				03047ED217F498D000ECDFFA /* SDLMain.m in Sources */,
+				03047EEE17F4E64800ECDFFA /* MapTileGrass.cpp in Sources */,
 				03047E9D17F4960400ECDFFA /* Texture.cpp in Sources */,
 				03047E8E17F4886A00ECDFFA /* GLRenderer.cpp in Sources */,
 				03047E9517F4954000ECDFFA /* FogOfWar.cpp in Sources */,
@@ -429,11 +424,12 @@
 				03047E7717F4868400ECDFFA /* Map.cpp in Sources */,
 				03047E9217F4953300ECDFFA /* clipper.cpp in Sources */,
 				03047E9E17F4960400ECDFFA /* Tooltip.cpp in Sources */,
-				03047EE217F49BEA00ECDFFA /* Settings.cpp in Sources */,
 				03047EB517F496F800ECDFFA /* Scripting.cpp in Sources */,
 				03047E8017F486E500ECDFFA /* Ressources.cpp in Sources */,
-				03047E6217F484BF00ECDFFA /* Tile.cpp in Sources */,
+				03047EF417F4E88200ECDFFA /* MapTileWoods.cpp in Sources */,
+				03047E6217F484BF00ECDFFA /* MapTile.cpp in Sources */,
 				03047E7D17F486C300ECDFFA /* Player.cpp in Sources */,
+				03047EF117F4E7A800ECDFFA /* MapTileWater.cpp in Sources */,
 				03047E7117F4862C00ECDFFA /* Timer.cpp in Sources */,
 				03047E6517F4851800ECDFFA /* GameData.cpp in Sources */,
 				03047E8617F4873100ECDFFA /* SDL_Functions.cpp in Sources */,
@@ -569,14 +565,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/usr/local/Cellar/boost/1.54.0/lib,
+					/usr/local/Cellar/lua/5.1.5/lib,
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"$(SFML_SYSTEM)",
-					"$(SFML_WINDOW)",
-					"$(SFML_GRAPHICS)",
-					"$(SFML_AUDIO)",
-					"$(SFML_NETWORK)",
+					"-framework",
+					OpenGL,
 					"-llua",
 					"-framework",
 					SDL,
@@ -584,12 +578,19 @@
 					SDL_ttf,
 					"-framework",
 					SDL_image,
-					"-lboost_program_options",
-					"-libstdc++",
+					"-lboost_program_options-mt",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = macosx;
+				SFML_AUDIO = "";
+				SFML_BINARY_TYPE = "";
+				SFML_GRAPHICS = "";
+				SFML_LINK_DYLIBS_PREFIX = "";
+				SFML_LINK_FRAMEWORKS_PREFIX = "";
+				SFML_NETWORK = "";
+				SFML_SYSTEM = "";
+				SFML_WINDOW = "";
 				USER_HEADER_SEARCH_PATHS = /usr/local/Cellar/boost/1.54.0/include;
 			};
 			name = Debug;
@@ -614,14 +615,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/usr/local/Cellar/boost/1.54.0/lib,
+					/usr/local/Cellar/lua/5.1.5/lib,
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"$(SFML_SYSTEM)",
-					"$(SFML_WINDOW)",
-					"$(SFML_GRAPHICS)",
-					"$(SFML_AUDIO)",
-					"$(SFML_NETWORK)",
+					"-framework",
+					OpenGL,
 					"-llua",
 					"-framework",
 					SDL,
@@ -629,12 +628,19 @@
 					SDL_ttf,
 					"-framework",
 					SDL_image,
-					"-lboost_program_options",
-					"-libstdc++",
+					"-lboost_program_options-mt",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SDKROOT = macosx;
+				SFML_AUDIO = "";
+				SFML_BINARY_TYPE = "";
+				SFML_GRAPHICS = "";
+				SFML_LINK_DYLIBS_PREFIX = "";
+				SFML_LINK_FRAMEWORKS_PREFIX = "";
+				SFML_NETWORK = "";
+				SFML_SYSTEM = "";
+				SFML_WINDOW = "";
 				USER_HEADER_SEARCH_PATHS = /usr/local/Cellar/boost/1.54.0/include;
 			};
 			name = Release;
@@ -658,6 +664,7 @@
 				03047E3617F4686400ECDFFA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

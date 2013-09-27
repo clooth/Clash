@@ -99,7 +99,7 @@ int Scripting::importMap(lua_State* L) {
 
 	filename = lua_tostring(L, 1);
 	std::cout << "-- loading map " << filename << "..." << std::endl;
-	gameState->getMap()->importMap(filename);
+	gameState->getMap()->import_map_from_file(filename);
 
 	return 0;
 }

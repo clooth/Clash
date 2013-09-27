@@ -15,11 +15,14 @@
 
 #include "GameObject.h"
 
+namespace Clash {
+    class Map;
+}
+
 class GameState;
 class Timer;
 class Ressources;
 class Unit;
-class Map;
 class Tooltip;
 class Player;
 

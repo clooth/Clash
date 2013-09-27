@@ -204,10 +204,10 @@ bool AStarPath::checkUnitBorders(int x, int y) {
     // This part checks if a building is on this coordinates. If so, it
     // will return false.
     if(onBuilding) { // Not for Worker, they should run through stuff when working.
-        if(gameState->getMap()->tileUsed((x*8-((x*8)%64))/64,(y*8-((y*8)%64))/64)) return false;
-        if(gameState->getMap()->tileUsed(((x+4)*8-(((x+4)*8)%64))/64,(y*8-((y*8)%64))/64)) return false;
-        if(gameState->getMap()->tileUsed((x*8-((x*8)%64))/64,((y+4)*8-(((y+4)*8)%64))/64)) return false;
-        if(gameState->getMap()->tileUsed(((x+4)*8-(((x+4)*8)%64))/64,((y+4)*8-(((y+4)*8)%64))/64)) return false;
+        if(gameState->getMap()->is_tile_used((x*8-((x*8)%64))/64,(y*8-((y*8)%64))/64)) return false;
+        if(gameState->getMap()->is_tile_used(((x+4)*8-(((x+4)*8)%64))/64,(y*8-((y*8)%64))/64)) return false;
+        if(gameState->getMap()->is_tile_used((x*8-((x*8)%64))/64,((y+4)*8-(((y+4)*8)%64))/64)) return false;
+        if(gameState->getMap()->is_tile_used(((x+4)*8-(((x+4)*8)%64))/64,((y+4)*8-(((y+4)*8)%64))/64)) return false;
 
         //  This part checks if another unit is on this coordinates. If so,
 		// it will return false.
@@ -233,10 +233,10 @@ bool AStarPath::checkUnitBorders(int x, int y) {
     }
     // This part checks if a non-movable tile is on this coordinates. If so,
     // it will return false.
-    if(gameState->getMap()->tileType((x*8-((x*8)%64))/64,(y*8-((y*8)%64))/64) != 1) return false;
-    if(gameState->getMap()->tileType(((x+4)*8-(((x+4)*8)%64))/64,(y*8-((y*8)%64))/64) != 1) return false;
-    if(gameState->getMap()->tileType((x*8-((x*8)%64))/64,((y+4)*8-(((y+4)*8)%64))/64) != 1) return false;
-    if(gameState->getMap()->tileType(((x+4)*8-(((x+4)*8)%64))/64,((y+4)*8-(((y+4)*8)%64))/64) != 1) return false;
+    if(gameState->getMap()->tile_type((x*8-((x*8)%64))/64,(y*8-((y*8)%64))/64) != 1) return false;
+    if(gameState->getMap()->tile_type(((x+4)*8-(((x+4)*8)%64))/64,(y*8-((y*8)%64))/64) != 1) return false;
+    if(gameState->getMap()->tile_type((x*8-((x*8)%64))/64,((y+4)*8-(((y+4)*8)%64))/64) != 1) return false;
+    if(gameState->getMap()->tile_type(((x+4)*8-(((x+4)*8)%64))/64,((y+4)*8-(((y+4)*8)%64))/64) != 1) return false;
 
     // Return true if method have not returned yet == nothing in the way
     return true;

@@ -15,7 +15,7 @@
 #include <vector>
 #include <list>
 
-#include "Tile.h"
+#include "MapTile.h"
 #include "Map.h"
 #include "GameObject.h"
 #include "Node.h"

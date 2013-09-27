@@ -72,7 +72,7 @@ void Barracks::doMotion(int clickX, int clickY) {
 void Building::createBuilding(int x, int y) {
     for(int i=0; i < size; i++) {
         for(int j=0; j < size; j++) {
-            gameState->getMap()->setTile(x+i,y+j,true);
+            this->gameState->getMap()->set_tile(x+i, y+j, true);
         }
     }
 }
@@ -350,7 +350,7 @@ Gold::Gold(int x, int y, GameState* gameState) {
 Building::~Building() {
     for(int i=0; i < size; i++) {
         for(int j=0; j < size; j++) {
-            gameState->getMap()->setTile(x+i,y+j,false);
+            gameState->getMap()->set_tile(x+i,y+j,false);
         }
     }
 

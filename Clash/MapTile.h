@@ -110,5 +110,7 @@ namespace Clash
 
 // Import all tile types here
 #include "MapTileGrass.h"
+#include "MapTileWater.h"
+#include "MapTileWoods.h"
 
 #endif /* defined(__Clash__Tile__) */

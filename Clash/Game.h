@@ -34,13 +34,16 @@
 
 #include <SDL/SDL.h>
 
+namespace Clash {
+    class Map;
+}
+
 class GLRenderer;
 class GameState;
 class Ressources;
 class GameObject;
 class Building;
 class Unit;
-class Map;
 class Tooltip;
 class Audio;
 class FogOfWar;
@@ -58,9 +61,6 @@ private:
     GameState *m_game_state;
 
     /**
-     *
-     */
-    /**
      * Renderer Object
      */
     GLRenderer* render;
@@ -73,7 +73,7 @@ private:
     /**
      * Map of the current game.
      */
-    Map m;
+    Clash::Map m;
 
     /**
      * Vector which gets a list of each unit or building the user selects

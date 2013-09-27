@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Nico Hämäläinen. All rights reserved.
 //
 
-class MapTile;
+#import "MapTile.h"
 
 namespace Clash
 {

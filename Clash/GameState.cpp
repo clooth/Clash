@@ -20,7 +20,7 @@
 #include "GLRenderer.h"
 #include "FogOfWar.h"
 
-GameState::GameState(Map* m, std::vector<Building*>* b, std::vector<Unit*>* u, int* a, Timer* t, std::string* aS, std::vector<Player*>* p, Tooltip* to, FogOfWar* fov) {
+GameState::GameState(Clash::Map* m, std::vector<Building*>* b, std::vector<Unit*>* u, int* a, Timer* t, std::string* aS, std::vector<Player*>* p, Tooltip* to, FogOfWar* fov) {
     this->screen = NULL;
     this->renderer = NULL;
 
@@ -69,7 +69,7 @@ void GameState::setActiveTooltip(Tooltip* t) {
     this->activeTooltip = t;
 }
 
-Map* GameState::getMap() {
+Clash::Map* GameState::getMap() {
     return map;
 }
 
